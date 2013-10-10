@@ -133,6 +133,9 @@ class ldap::server::master(
   $ssl_ca              = false,
   $ssl_cert            = false,
   $ssl_key             = false,
+  $ssl_ca_source       = false,
+  $ssl_cert_source     = false,
+  $ssl_key_source      = false,
   $syncprov            = false,
   $syncprov_checkpoint = '100 10',
   $syncprov_sessionlog = '100',
@@ -207,7 +210,7 @@ class ldap::server::master(
     if(!$ssl_ca) { fail("${msg_prefix} ssl_ca ${msg_suffix}") }
     file { 'ssl_ca':
       ensure  => present,
-      source  => "puppet:///files/ldap/${ssl_ca}",
+      source  => $ssl_ca_source,
       path    => "${ldap::params::ssl_prefix}/${ssl_ca}",
       mode    => '0644',
     }
@@ -215,7 +218,7 @@ class ldap::server::master(
     if(!$ssl_cert) { fail("${msg_prefix} ssl_cert ${msg_suffix}") }
     file { 'ssl_cert':
       ensure  => present,
-      source  => "puppet:///files/ldap/${ssl_cert}",
+      source  => $ssl_cert_source,
       path    => "${ldap::params::ssl_prefix}/${ssl_cert}",
       mode    => '0644',
     }
@@ -223,7 +226,7 @@ class ldap::server::master(
     if(!$ssl_key) { fail("${msg_prefix} ssl_key ${msg_suffix}") }
     file { 'ssl_key':
       ensure  => present,
-      source  => "puppet:///files/ldap/${ssl_key}",
+      source  => $ssl_key_source,
       path    => "${ldap::params::ssl_prefix}/${ssl_key}",
     }
 
